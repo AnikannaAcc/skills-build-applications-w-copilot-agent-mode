@@ -5,6 +5,7 @@ const API_HOST = CODESPACE_NAME && CODESPACE_NAME.trim()
   ? `https://${CODESPACE_NAME}-8000.app.github.dev`
   : 'http://localhost:8000'
 const API_ROOT = `${API_HOST}/api`
+// Full endpoint example: https://${CODESPACE_NAME}-8000.app.github.dev/api/users
 
 function normalizeResponse(payload) {
   if (Array.isArray(payload)) return payload
