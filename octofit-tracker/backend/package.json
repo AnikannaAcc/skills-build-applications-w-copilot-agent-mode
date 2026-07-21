@@ -4,8 +4,8 @@
   "private": true,
   "main": "src/server.ts",
   "scripts": {
-    "dev": "ts-node src/server.ts",
-    "start": "ts-node src/server.ts",
+    "dev": "npm run build && node dist/server.js",
+    "start": "node dist/server.js",
     "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "express": "^5.2.1",
     "mongoose": "^9.8.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.23.1",
     "typescript": "^7.0.2"
   },
   "devDependencies": {

@@ -2,27 +2,26 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import apiRoutes from './routes/api';
 
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8000;
+const port = Number(process.env.PORT || 8000);
 const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
+const codespaceName = process.env.CODESPACE_NAME;
+const baseUrl = codespaceName
+  ? `https://${codespaceName}-8000.app.github.dev`
+  : `http://localhost:${port}`;
 
 app.use(cors());
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok', service: 'octofit-backend' });
+  res.json({ status: 'ok', service: 'octofit-backend', baseUrl });
 });
 
-app.get('/api/leaderboard', (_req, res) => {
-  res.json([
-    { name: 'Nova', points: 2840 },
-    { name: 'Atlas', points: 2410 },
-    { name: 'Suri', points: 2180 },
-  ]);
-});
+app.use('/api', apiRoutes);
 
 async function connectToDatabase() {
   try {
@@ -36,5 +35,5 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.listen(port, () => {
-  console.log(`OctoFit API running on http://localhost:${port}`);
+  console.log(`OctoFit API running on ${baseUrl}`);
 });
