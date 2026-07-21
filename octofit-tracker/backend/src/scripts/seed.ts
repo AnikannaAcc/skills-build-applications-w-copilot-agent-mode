@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { connectToDatabase } from '../config/database';
 import { Activity, LeaderboardEntry, Team, User, Workout } from '../models/octofit';
 
+// Seed the octofit_db database with test data
 async function seedDatabase() {
   try {
     await connectToDatabase();
