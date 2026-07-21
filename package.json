@@ -1,0 +1,29 @@
+{
+  "name": "skills-build-applications-w-copilot-agent-mode",
+  "version": "1.0.0",
+  "description": "<img src=\"https://octodex.github.com/images/Professortocat_v2.png\" align=\"right\" height=\"200px\" />",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "dev": "npm --prefix ./octofit-tracker/frontend run dev",
+    "dev:backend": "npm --prefix ./octofit-tracker/backend run dev",
+    "build:frontend": "npm --prefix ./octofit-tracker/frontend run build",
+    "build:backend": "npm --prefix ./octofit-tracker/backend run build",
+    "start:frontend": "npm --prefix ./octofit-tracker/frontend run preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnikannaAcc/skills-build-applications-w-copilot-agent-mode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/AnikannaAcc/skills-build-applications-w-copilot-agent-mode/issues"
+  },
+  "homepage": "https://github.com/AnikannaAcc/skills-build-applications-w-copilot-agent-mode#readme"
+}
