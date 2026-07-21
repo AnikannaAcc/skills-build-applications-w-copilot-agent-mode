@@ -1,41 +1,6 @@
 import mongoose from 'mongoose';
 import { connectToDatabase } from '../config/database';
-
-const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  role: { type: String, default: 'member' },
-});
-
-const teamSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  members: { type: Number, default: 0 },
-  goal: { type: String, default: 'Build momentum' },
-});
-
-const activitySchema = new mongoose.Schema({
-  type: { type: String, required: true },
-  durationMinutes: { type: Number, required: true },
-  date: { type: String, required: true },
-});
-
-const leaderboardSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  points: { type: Number, required: true },
-  team: { type: String, required: true },
-});
-
-const workoutSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  durationMinutes: { type: Number, required: true },
-  intensity: { type: String, required: true },
-});
-
-const User = mongoose.model('User', userSchema);
-const Team = mongoose.model('Team', teamSchema);
-const Activity = mongoose.model('Activity', activitySchema);
-const LeaderboardEntry = mongoose.model('LeaderboardEntry', leaderboardSchema);
-const Workout = mongoose.model('Workout', workoutSchema);
+import { Activity, LeaderboardEntry, Team, User, Workout } from '../models/octofit';
 
 async function seedDatabase() {
   try {

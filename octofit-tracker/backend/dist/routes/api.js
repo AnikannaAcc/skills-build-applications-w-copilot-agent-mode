@@ -1,85 +1,52 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const octofit_1 = require("../models/octofit");
+const database_1 = require("../config/database");
 const router = (0, express_1.Router)();
-const users = [
-    { id: 'user-1', name: 'Nia', email: 'nia@octofit.com', role: 'captain' },
-    { id: 'user-2', name: 'Mateo', email: 'mateo@octofit.com', role: 'member' },
-];
-const teams = [
-    { id: 'team-1', name: 'Velocity', members: 8, goal: 'Marathon prep' },
-    { id: 'team-2', name: 'Summit', members: 6, goal: 'Strength cycle' },
-];
-const activities = [
-    { id: 'activity-1', type: 'Run', durationMinutes: 35, date: '2026-07-21' },
-    { id: 'activity-2', type: 'Yoga', durationMinutes: 30, date: '2026-07-20' },
-];
-const leaderboard = [
-    { id: 'entry-1', name: 'Nova', points: 2840, team: 'Velocity' },
-    { id: 'entry-2', name: 'Atlas', points: 2410, team: 'Summit' },
-    { id: 'entry-3', name: 'Suri', points: 2180, team: 'Velocity' },
-];
-const workouts = [
-    { id: 'workout-1', title: 'Tempo Interval', durationMinutes: 35, intensity: 'High' },
-    { id: 'workout-2', title: 'Core Recovery', durationMinutes: 20, intensity: 'Low' },
-];
-router.get('/users/', (_req, res) => {
+router.get('/users', async (_req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const users = await octofit_1.User.find({}).lean();
     res.json(users);
 });
-router.post('/users/', (req, res) => {
-    const user = req.body;
-    const createdUser = {
-        id: `user-${Date.now()}`,
-        name: user.name ?? 'New User',
-        email: user.email ?? 'new-user@octofit.com',
-        role: user.role ?? 'member',
-    };
-    users.push(createdUser);
-    res.status(201).json(createdUser);
+router.post('/users', async (req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const user = await octofit_1.User.create(req.body);
+    res.status(201).json(user);
 });
-router.get('/teams/', (_req, res) => {
+router.get('/teams', async (_req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const teams = await octofit_1.Team.find({}).lean();
     res.json(teams);
 });
-router.post('/teams/', (req, res) => {
-    const team = req.body;
-    const createdTeam = {
-        id: `team-${Date.now()}`,
-        name: team.name ?? 'New Team',
-        members: team.members ?? 0,
-        goal: team.goal ?? 'New challenge',
-    };
-    teams.push(createdTeam);
-    res.status(201).json(createdTeam);
+router.post('/teams', async (req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const team = await octofit_1.Team.create(req.body);
+    res.status(201).json(team);
 });
-router.get('/activities/', (_req, res) => {
+router.get('/activities', async (_req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const activities = await octofit_1.Activity.find({}).lean();
     res.json(activities);
 });
-router.post('/activities/', (req, res) => {
-    const activity = req.body;
-    const createdActivity = {
-        id: `activity-${Date.now()}`,
-        type: activity.type ?? 'Workout',
-        durationMinutes: activity.durationMinutes ?? 0,
-        date: activity.date ?? new Date().toISOString(),
-    };
-    activities.push(createdActivity);
-    res.status(201).json(createdActivity);
+router.post('/activities', async (req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const activity = await octofit_1.Activity.create(req.body);
+    res.status(201).json(activity);
 });
-router.get('/leaderboard/', (_req, res) => {
+router.get('/leaderboard', async (_req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const leaderboard = await octofit_1.LeaderboardEntry.find({}).lean();
     res.json(leaderboard);
 });
-router.get('/workouts/', (_req, res) => {
+router.get('/workouts', async (_req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const workouts = await octofit_1.Workout.find({}).lean();
     res.json(workouts);
 });
-router.post('/workouts/', (req, res) => {
-    const workout = req.body;
-    const createdWorkout = {
-        id: `workout-${Date.now()}`,
-        title: workout.title ?? 'New Workout',
-        durationMinutes: workout.durationMinutes ?? 0,
-        intensity: workout.intensity ?? 'Medium',
-    };
-    workouts.push(createdWorkout);
-    res.status(201).json(createdWorkout);
+router.post('/workouts', async (req, res) => {
+    await (0, database_1.connectToDatabase)();
+    const workout = await octofit_1.Workout.create(req.body);
+    res.status(201).json(workout);
 });
 exports.default = router;
